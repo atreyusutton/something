@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+/* Light earth-tone palette. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #faf7f2;
+  --panel: #fffdf6;            /* card surface, slightly above bg */
+  --panel-2: #f4efe1;          /* muted secondary surface */
+  --foreground: #1c1f1a;
+  --muted: #f1ecdf;
+  --muted-foreground: #5b6256;
+  --border: #e2dccb;
+  --primary: #2f4a2c;          /* deep forest green */
+  --primary-foreground: #faf7f2;
+  --accent: #b87333;           /* copper */
+  --accent-foreground: #faf7f2;
+  --score-high: #2f4a2c;
+  --score-mid: #b87333;
+  --score-low: #8a8068;
+  --topo-line: rgba(47, 74, 44, 0.06);
+  --topo-line-strong: rgba(184, 115, 51, 0.05);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-score-high: var(--score-high);
+  --color-score-mid: var(--score-mid);
+  --color-score-low: var(--score-low);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html, body { background: var(--background); color: var(--foreground); }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
 }
+
+/* Topo background — soft contour-line feel on cream */
+.topo-bg {
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(47,74,44,0.08), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(184,115,51,0.05), transparent 60%),
+    repeating-radial-gradient(circle at 30% 20%, transparent 0 22px, var(--topo-line) 22px 23px),
+    repeating-radial-gradient(circle at 70% 80%, transparent 0 28px, var(--topo-line-strong) 28px 29px),
+    var(--background);
+}
+
+/* MapLibre tweaks for light feel */
+.maplibregl-canvas { outline: none !important; }
+.maplibregl-ctrl-attrib {
+  background: rgba(255,253,246,0.85) !important;
+  color: var(--muted-foreground) !important;
+}
+.maplibregl-ctrl-attrib a { color: var(--primary) !important; }
+.maplibregl-popup-content {
+  background: var(--panel) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  font-family: inherit !important;
+  padding: 8px 10px !important;
+  font-size: 12px !important;
+  box-shadow: 0 4px 16px rgba(28,31,26,0.08) !important;
+}
+.maplibregl-popup-tip { display: none !important; }
+
+/* Subtle scrollbar */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: #d8d2bf; border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: #c4bea6; }
+*::-webkit-scrollbar-track { background: transparent; }
